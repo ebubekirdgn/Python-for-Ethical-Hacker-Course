@@ -1,0 +1,2 @@
+def metal():
+	print("metal")

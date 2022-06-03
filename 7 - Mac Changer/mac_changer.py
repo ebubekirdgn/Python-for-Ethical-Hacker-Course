@@ -1,21 +1,25 @@
-from ast import arguments
-import imp
+from re import sub
 import subprocess
 import optparse as opt
 
-parse_object = opt.OptionParser()
-parse_object.add_option("-i","interface",dest="interface",help="interface to change")
-parse_object.add_option("-m","--mac",dest="mac_address",help="new mac address")
+def get_user_input():
+    parse_object = opt.OptionParser()
+    parse_object.add_option("-i","--interface",dest="interface",help="interface to change")
+    parse_object.add_option("-m","--mac",dest="mac_address",help="new mac address")
+    return parse_object.parse_args()
 
-(user_inputs,arguments) = parse_object.parse_args()
-print(user_inputs.interface)
-print(user_inputs.mac_address)
+def change_mac_address(user_interface,user_mac_address):
+    subprocess.call(["ifconfig",user_interface,"down"])
+    subprocess.call(["ifconfig",user_interface,"hw",user_mac_address])
+    subprocess.call(["ifconfig",user_interface,"up"])
 
-interface = "eth0"
-mac_address = "00:11:22:33:33:44"
-
+def control_new_mac(interface):
+    ifconfig = subprocess.check_output(["ifconfig",interface])
+    print(ifconfig)
+    
+    
 print("My Mac Changer Started!")
 
-subprocess.call(["ifconfig",interface,"down"])
-subprocess.call(["ifconfig",interface,"hw",mac_address])
-subprocess.call(["ifconfig",interface,"up"])
+(user_input,arguments) = get_user_input()
+change_mac_address(user_input.interface,user_input.mac_address)
+control_new_mac(user_input.interface)

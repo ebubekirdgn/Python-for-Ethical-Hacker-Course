@@ -9,8 +9,8 @@ def get_mac_addres(ip):
     #scapy.ls(scapy.Ether())
     combined_packet = broadcast_packet / arp_request_packet
     answered_list = scapy.srp(combined_packet,timeout=1)[0]
-    print(list(answered_list[0][0]))
-    answered_list.summary() 
+    return answered_list[0][1].hwsrc
+    #answered_list.summary() 
     
 def arp_poisoning(target_ip,poisoned_ip):
     #poisoned ip dedigimiz sey modem veya router ip sidir.

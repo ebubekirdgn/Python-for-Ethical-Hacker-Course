@@ -30,4 +30,3 @@ def scan_my_network(ip):
 
 user_ip_address = get_user_input()
 scan_my_network(user_ip_address.ip_address)
-

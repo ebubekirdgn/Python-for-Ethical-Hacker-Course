@@ -1,3 +1,0 @@
-import yoda
-
-print("anakin")

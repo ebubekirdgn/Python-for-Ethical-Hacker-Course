@@ -6,8 +6,7 @@ import re
 
 def get_user_input():
     parse_object = opt.OptionParser()
-    parse_object.add_option("-i", "--ipaddress",
-                            dest="interface", help="Enter IP Address")
+    parse_object.add_option("-i", "--ipaddress",dest="interface", help="Enter IP Address")
     return parse_object.parse_args()
 
 
@@ -19,8 +18,7 @@ def change_mac_address(user_interface, user_mac_address):
 
 def control_new_mac(interface):
     ifconfig = subprocess.check_output(["ifconfig", interface])
-    new_mac_address = re.search(
-        r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", str(ifconfig))
+    new_mac_address = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", str(ifconfig))
     if new_mac_address:
         return new_mac_address.group(0)
     else:
